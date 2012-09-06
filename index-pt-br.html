@@ -245,7 +245,7 @@
                         <li><a href="#passing-functions-around">Passando em torno das funções</a></li>
                         <li><a href="#how-function-passing-makes-our-http-server-work">Qual função passada faz nosso servidor HTTP funcionar</a></li>
 
-                        <li><a href="#event-driven-callbacks">Eventos dirigitos e callback assíncronos</a></li>
+                        <li><a href="#event-driven-callbacks">Eventos dirigidos e callback assíncronos</a></li>
                         <li><a href="#how-our-server-handles-requests">Como nosso servidor processa as requisições</a></li>
                         <li><a href="#finding-a-place-for-our-server-module">Procurando um lugar para nosso módulo servidor</a>
                         </li>
@@ -318,248 +318,183 @@
         </p>
 
         <p>
-            Because that's the catch: you already are an experienced
-            developer, you don't want to learn a new technique by just
-            hacking around and mis-using it; you want to be sure that
-            you are approaching it from the right angle.
+            Porque este é o problema:
+            Você é um desenvolver experiente, e não quer aprender novas técnicas para apenas Hackear por ai e usar isto; Você quer ter certeza de que se esta aproximando da maneira correta.
         </p>
 
         <p>
-            There is, of course, excellent documentation out there.
-            But documentation alone sometimes isn't enough. What is
-            needed is guidance.
+            Ha, é claro, uma excelente documentação lá fora. Mas somente a documentação as vezes não é suficiente. O que precisa-se, é, orientação.
         </p>
 
         <p>
-            My goal is to provide a guide for you.
+            Meu objetivo é fornecer  um guia para você.
         </p>
 
         <a name="a-word-of-warning"></a>
 
-        <h3>A word of warning</h3>
+        <h3>Uma palavra de alerta</h3>
 
         <p>
-            There are some really excellent JavaScript people out
-            there. I'm not one of them.
+            Existem muitas pessoas realmente boas em JavaScript lá fora. Eu não sou um deles.
         </p>
 
         <p>
-            I'm really just the guy I talked about in the previous
-            paragraph. I know a thing or two about developing backend
-            web applications, but I'm still new to "real" JavaScript
-            and still new to Node.js. I learned some of the more
-            advanced aspects of JavaScript just recently.
-            I'm not experienced.
+            Eu sou apenas o cara que estava falando  no paragráfo anterior. Eu sei uma coisa ou duas sobre desenvolvimento backend em aplicações web, I know a thing or two about developing backend
+            web applications, mas eu ainda sou novo para o "verdadeiro" JavaScript e novo em Node.Js ainda. Eu aprendi alguns aspectos avançados do JavaScript recentemente. Não sou experiente.
         </p>
 
         <p>
-            Which is why this is no "from novice to expert" book. It's
-            more like "from novice to advanced novice".
+            É por isso que este livro não é algo como "do inicante ao expert". É mais como "do inicante ao iniciante avançado".
         </p>
 
         <p>
-            If I don't fail, then this will be the kind of
-            document I wish I had when starting with Node.js.
+            Se eu não falhar, então, este será o tipo de documento que eu gostaria de ter para quando começar a utilizar Node.js.
         </p>
 
         <a name="server-side-javascript"></a>
 
-        <h3>Server-side JavaScript</h3>
+        <h3>JavaScript no lado do servidor</h3>
 
         <p>
-            The first incarnations of JavaScript lived in browsers.
-            But this is just the context. It defines what you can
-            do with the language, but it doesn't say much about what
-            the language itself can do. JavaScript is a "complete"
-            language: you can use it in many contexts and achieve
-            everything with it you can achieve with any other
-            "complete" language.
+            As primeiras encarnações do javaScipt viveu em navegadores. Mas isso é apenas um contexto. Ele define o que você pode fazer com a linguagem, mas não diz muito sobre o que a linguagem, em si, pode fazer. JavaScript  é uma linguagem "completa":
+            você pode usar em vários contextos e conseguir fazer tudo com ele assim como em qualquer outras linguagens "completas".
         </p>
 
         <p>
-            Node.js really is just another context: it allows you to run
-            JavaScript code in the backend, outside a browser.
+            Node.js é realmente um outro contexto: te permitindo rodar o código JavaScript no backend, fora dos navegadores.
         </p>
 
         <p>
-            In order to execute the JavaScript you intend to run in the
-            backend, it needs to be interpreted and, well, executed.
-            This is what Node.js does, by making use of Google's V8 VM, the
-            same runtime environment for JavaScript that Google
-            Chrome uses.
+            A fim de executar o JavaScript, com a intenção de executar em backend, é necessário que ela seja interpretada e, então, executada. Isto é o que o Node.js faz, por meio da utilização do  Google's V8 VM, o mesmo ambiente de execução para JavaScript que o Google
+            Chrome usa.
         </p>
 
         <p>
-            Plus, Node.js ships with a lot of useful modules, so you don't
-            have to write everything from scratch, like for example
-            something that outputs a string on the console.
+            Além disso, o Node.js carrega um monte de módulos úteis, para que você não tenha que escrever tudo do zero, como por exemplo, algo como gerar a saida de strings no console.
         </p>
 
         <p>
-            Thus, Node.js is really two things: a runtime environment and a
-            library.
+            Assim, o Node.js são duas coisas: um ambiente de execução e uma biblioteca.
         </p>
 
         <p>
-            In order to make use of these, you need to install Node.js.
-            Instead of repeating the process here, I kindly ask you to
-            visit
-            <a href="https://github.com/joyent/node/wiki/Installation" title="Building and Installing Node.js">the
-                official
-                installation instructions</a>. Please come back once you
-            are up and running.
+            Com o intuito de fazer uso destes recursos, voce precisa instalar o Node.js. Ao invés de repetir o processo de instalação aqui, pedimos que você visite
+            <a href="https://github.com/joyent/node/wiki/Installation" title="Building and Installing Node.js">o guia oficial de instalação</a>. Por favor, volte quando estiver tudo funcionando.
         </p>
 
         <a name="hello-world"></a>
 
-        <h3>"Hello World"</h3>
+        <h3>"Olá Mundo"</h3>
 
         <p>
-            Ok, let's just jump in the cold water and write our first
-            Node.js application: "Hello World".
+            Ok, vamos pular na água gelada e escrever nossa primeira aplicação em Node.js: "Olá mundo".
         </p>
 
         <p>
-            Open your favorite editor and create a file called
-            <em>helloworld.js</em>. We want it to write "Hello World"
-            to STDOUT, and here is the code needed to do that:
+            Abra seu editor favorito e crie o arquivo chamado
+            <em>helloworld.js</em>. Queremos que ele escreva "Olá Mundo"
+            para STDOUT, e aqui esta o código necessário para isto:
         </p>
         <pre class="prettyprint lang-js"><span class="pln">console</span><span class="pun">.</span><span
                 class="pln">log</span><span class="pun">(</span><span class="str">"Hello World"</span><span class="pun">);</span></pre>
         <p>
-            Save the file, and execute it through Node.js:
+            Salve o arquivo, e execute através do Node.js:
         </p>
 
         <pre>node helloworld.js</pre>
         <p>
-            This should output <em>Hello World</em> on your terminal.
+            Esta deverá ser a saída <em>Hello World</em> em seu terminal.
         </p>
 
         <p>
-            Ok, this stuff is boring, right? Let's write some real
-            stuff.
+            OKs, isto é chato, certo? Vamos escrever alguns casos reais.
         </p>
 
 
         <a name="a-full-blown-web-application-with-nodejs"></a>
 
-        <h2>A full blown web application with Node.js</h2>
+        <h2>Uma aplicação web completa e exaustiva com Node.js</h2>
 
         <a name="the-use-cases"></a>
 
-        <h3>The use cases</h3>
+        <h3>Caso de uso</h3>
 
         <p>
-            Let's keep it simple, but realistic:
+            Vamos deixa-lo simple, porém realista:
         </p>
         <ul>
 
             <li>
-                The user should be able to use our application with
-                a web browser
+                O usuário deverá ser capaz de usar nossa aplicação em um navegador web
             </li>
             <li>
-                The user should see a welcome page when
-                requesting http://<em>domain</em>/start which displays a
-                file upload form
+                O usuário deverá ver uma página de boas vindas quando acessar http://<em>domain</em>/start que ira exibir um formulário de upload de arquivos
             </li>
             <li>
-                By choosing an image file to upload and submitting the
-                form, this image should then be uploaded to
-                http://<em>domain</em>/upload, where it is displayed once
-                the upload is finished
+                Ao escolher uma imagem para fazer upload e submeter o formulário, esta imagem deverá então ser salva em
+                http://<em>domain</em>/upload, onde irá ser exibida uma vez que o upload foi terminado
             </li>
 
         </ul>
         <p>
-            Fair enough. Now, you could achieve this goal by googling
-            and hacking together <em>something</em>. But that's not
-            what we want to do here.
+            Pois bem. Agora, você pode atingir este passo/objetivo pelo google e hackeando <em>alguma coisa</em>. Mas isso não é o que queremos fazer aqui.
         </p>
 
         <p>
-            Furthermore, we don't want to write only the most basic
-            code to achieve the goal, however elegant and correct this code
-            might be. We will intentionally add more abstraction than
-            necessary in order to get a feeling for building more
-            complex Node.js applications.
+            Além disso, nós não queremos escrever somente o código mais básico para atingir nosso objetivo, entretanto, fazer o código mais correto e elegante possível. Intencionalmente, nós iremos adicionar mais abstração do que o necessário afim de obter um feedback maior, para construir mais aplicações complexas com Node.js.
         </p>
 
         <a name="the-application-stack"></a>
 
-        <h3>The application stack</h3>
+        <h3>A aplicação em pilha</h3>
 
         <p>
-            Let's dissect our application. Which parts need to be
-            implemented in order to fulfill the use cases?
+            Vamos dissecar nossa aplicação.
+            Let's dissect our application. Quais partes precisam estar implementadas a fim de cumprir os casos de uso?
         </p>
 
         <ul>
             <li>
-                We want to serve web pages, therefore we need an
-                <strong>HTTP server</strong>
+                Nós queremos servir páginas web, portanto precisamos de um 
+                <strong>HTTP servidor</strong>
             </li>
 
             <li>
-                Our server will need to answer differently to
-                requests, depending on which URL the request was
-                asking for, thus we need some kind of
-                <strong>router</strong> in order to map requests
-                to request handlers
+                Nosso servidor precisará de responder diferentes requisições, dependendo de qual URL foi chamado do pedido feito, portanto, precisamos de algum tipo de 
+                <strong>roteamento</strong> a fim de mapear as requisições pelo que foi solicitado.
             </li>
             <li>
-                To fullfill the requests that arrived at the server
-                and have been routed using the router, we need
-                actual <strong>request handlers</strong>
+                Para tratar as requisições que chegam ao servidor e que foram encaminhadas usando o roteamento, precisamos de um <strong>manipulador de solicitação </strong> real.
             </li>
             <li>
-
-                The router probably should also treat any incoming
-                POST data and give it to the request handlers in
-                a convenient form, thus we need <strong>request
-                data handling</strong>
+                O roteador provavelmente deverá tratar, também, qualquer chegada de dados do tipo POST e entregar ao manipulador de requisição de uma forma conveniente, portanto, precisamos de um <strong>manipulador de dados</strong>
             </li>
             <li>
-                We not only want to handle requests for URLs, we
-                also want to display content when these URLs are
-                requested, which means we need some kind of
-                <strong>view logic</strong> the request handlers
-                can use in order to send content to the user's
-                browser
+                Nós não queremos somente processar os pedidos das URLs, nós também precisaremos exibir o conteudo quando estas URLs serão chamadas, o qie significa que vamos precisar de um tipo de 
+                <strong>visão lógica</strong> que os manipuladores de requisição podem usar afim de setar/enviar o conteudo para o navegador do usuário.
             </li>
             <li>
-                Last but not least, the user will be able to upload
-                images, so we are going to need some kind of
-                <strong>upload handling</strong> which takes care of
-                the details
+                Por último, mas não menos importante, o usuário será capaz de fazer upload das imagens, então precisamos de algum tipo de 
+                <strong>upload handling</strong> que cuida destes detalhes
             </li>
         </ul>
 
         <p>
-            Let's think a moment about how we would build this stack
-            with PHP. It's not exactly a secret that the typical setup
-            would be an Apache HTTP server with mod_php5 installed.
+            Vamos pensar um momento em como nós íriamos construir esta pilha com PHP. Não é segredo nenhum que a configuração típica seria um servidor HTTP rodando Apache com o mod_php5 instalado.
             <br>
-            Which in turn means that the whole "we need to be able to
-            serve web pages and receive HTTP requests" stuff doesn't
-            happen within PHP itself.
+            O que significa que:"nós precisamos ser capazes de servir páginas web e receber solicitações HTTP", mas isso nao acontence dentro do PHP.
         </p>
 
         <p>
-            Well, with node, things are a bit different. Because with
-            Node.js, we not only implement our application, we also
-            implement the whole HTTP server. In fact, our web
-            application and its web server are basically the same.
+            Bem, com Node.js, as coisas são diferentes. Porque com Node.js, nós nao vamos somente implementar nossa aplicação, vamos também implementar nosso servidor HTTP por completo. Na verdade, mossa aplicação web e nosso servidor são basicamente os mesmos.
         </p>
 
         <p>
-            This might sound like a lot of work, but we will see in a
-            moment that with Node.js, it's not.
+            Isto pode soar como trabalhoso, mas vamos ver em um momento que com Node.js não é assim.
         </p>
 
         <p>
-            Let's just start at the beginning and implement the first
-            part of our stack, the HTTP server.
+            Vamos começar no início e implementar a primeira parte de nossa pilha, o servidor HTTP.
         </p>
 
         <a name="building-the-application-stack"></a>
