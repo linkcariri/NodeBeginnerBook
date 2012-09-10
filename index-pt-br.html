@@ -506,45 +506,44 @@
         <h3>Um servidor HTTP básico</h3>
 
         <p>
-            When I arrived at the point where I wanted to start with my
-            first "real" Node.js application, I wondered not only how to
-            actually code it, but also how to organize my code.
+            Quando cheguei ao ponto onde eu queria começar com minha primeira
+            aplicação em Node.js, eu me perguntava não somente em como codificar, 
+            mas também em como organizar meu código.
             <br>
-            Do I need to have everything in one file? Most tutorials on
-            the web that teach you how to write a basic HTTP server in
-            Node.js have all the logic in one place. What if I want to
-            make sure that my code stays readable the more stuff I
-            implement?
+            Eu preciso colocar tudo em um arquivo? Muitos tutoriais na web
+            que ensinam, como escrever um servidor HTTP básico em Node.js 
+            colocam toda a lógica em um lugar. E se eu quiser ter certeza que 
+            meu código continuará legível se eu implementar mais coisas?
         </p>
 
         <p>
-            Turns out, it's relatively easy to keep the different
-            concerns of your code separated, by putting them in
-            modules.
+            Acontece que, é relativamente fácil manter essas preocupações
+            separando o seu código, colocando-os em módulos.
         </p>
 
         <p>
-            This allows you to have a clean main file, which you
-            execute with Node.js, and clean modules that can be used by
-            the main file and among each other.
+            Isto te permite em ter um arquivo principal legivel/limpo, 
+            This allows you to have a clean main file, que você executa
+            com Node.js, e módulos legíveis que podem ser usados pelo
+            arquivo principal ou entre os outros módulos.
         </p>
 
         <p>
-            So, let's create a main file which we use to start our
-            application, and a module file where our HTTP server code
-            lives.
+            Então, vamos criar um arquivo principal que nós usaremos para
+            começar nossa aplicação, e um módulo onde nosso código do
+            servidor HTTP irá ficar.
         </p>
 
         <p>
-            My impression is that it's more or less a standard to name
-            your main file <em>index.js</em>. It makes sense to put our
-            server module into a file named <em>server.js</em>.
+            Minha impressão é que, é mais ou menos, um padrão para 
+            nomear seu arquivo principal <em>index.js</em>. Faz mais sentido colocar
+            nosso módulo de servidor com o nome <em>server.js</em>.
         </p>
 
         <p>
-            Let's start with the server module. Create the file
-            <em>server.js</em> in the root directory of your project,
-            and fill it with the following code:
+            Vamos comecar com nosso módulo para o servidor HTTP. Crie um arquivo
+            <em>server.js</em> na raíz do diretório do nosso projeto,
+            e preencha-o seguindo o código abaixo:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">var</span><span class="pln"> http </span><span
                 class="pun">=</span><span class="pln"> require</span><span class="pun">(</span><span
@@ -564,54 +563,51 @@
                 class="pun">);</span></pre>
 
         <p>
-            That's it! You just wrote a working HTTP server. Let's
-            prove it by running and testing it. First, execute your
-            script with Node.js:
+            Pronto! Você escreveu um servidor HTTP. Vamos te provar executando
+            e testando. Primeiro, execute seu script com Node.js:
         </p>
         <pre>node server.js</pre>
         <p>
-            Now, open your browser and point it at
+            Agora, abra seu navegador e coloque o endereço da url:
             <a href="http://localhost:8888/" rel="nofollow">http://localhost:8888/</a>.
-            This should display a web page that says "Hello World".
+            Com isso deve exibir uma página web com os dizeres "Olá Mundo".
         </p>
 
         <p>
-            That's quite interesting, isn't it. How about talking about
-            what's going on here and leaving the question of how to
-            organize our project for later? I promise we'll get back to
-            it.
+            Isso é muito interessante não é. Que tal falarmos sobre o que está
+            acontecendo aqui e deixar a questão de como organizar nosso projeto
+            para mais tarde? Eu prometo que voltaremos aqui.
         </p>
 
         <a name="analyzing-our-http-server"></a>
 
-        <h3>Analyzing our HTTP server</h3>
+        <h3>Analisando nosso servidor HTTP</h3>
 
         <p>
-            Well, then, let's analyze what's actually going on here.
+            Bom, então, vamos analisar o que realmente está acontecendo aqui.
         </p>
 
         <p>
-            The first line <em>require</em>s the <em>http</em> module
-            that ships with Node.js and makes it accessible through the
-            variable <em>http</em>.
+            A primeira linha <em>requer</em> o módulo <em>http</em> que já vem carregado
+            junto com o Node.js e se torna acessivel através da variável <em>http</em>.
         </p>
 
         <p>
-            We then call one of the functions the http module offers:
-            <em>createServer</em>. This function returns an object, and
-            this object has a method named <em>listen</em>, and takes
-            a numeric value which indicates the port number our HTTP
-            server is going to listen on.
+            Nós podemos então, chamar uma das funções que o módulo http oferece:
+            <em>createServer</em>. Essa função retorna um objeto, e este objeto
+            tem um método chamado <em>listen</em>, e passa como parâmetro um valor
+            numérico, o qual, indica o número da porta que nosso servidor HTT está 
+            escutando.
         </p>
 
         <p>
-            Please ignore for a second the function definition that
-            follows the opening bracket of <em>http.createServer</em>.
+            Por favor, ignore a segunda função definida que possui parênteses
+            em aberto em: <em>http.createServer</em>.
         </p>
 
         <p>
-            We could have written the code that starts our server and
-            makes it listen at port 8888 like this:
+            Poderiamos ter escrito o código que inicia nosso servidor fazendo ele
+            escutar a porta 8888, como abaixo:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">var</span><span class="pln"> http </span><span
                 class="pun">=</span><span class="pln"> require</span><span class="pun">(</span><span
@@ -622,24 +618,14 @@
                 class="lit">8888</span><span class="pun">);</span></pre>
 
         <p>
-            That would start an HTTP server listening at port 8888
-            and doing nothing else (not even answering any incoming
-            requests).
+            Este deverá iniciar um servidor HTTP, escutando a porta 8888 e nao fazer mais nada (nem mesmo responder a qualquer solicitação).
+        </p>
+
+        <p> A parte realmente interessante (e, se sua aplicação background for uma linguagem conservadora como php, olhando estranho) é a definição bem ali onde você espera o primeiro paramento na chamada do <em>createServer()</em>.
         </p>
 
         <p>
-            The really interesting (and, if your background is a more
-            conservative language like PHP, odd looking) part is the
-            function definition right there where you would expect the
-            first parameter of the <em>createServer()</em> call.
-        </p>
-
-        <p>
-            Turns out, this function definition IS the first (and only)
-            parameter we are giving to the <em>createServer()</em>
-
-            call. Because in JavaScript, functions can be passed around
-            like any other value.
+            Acontece que, esta definição da função É o primeiro ( e único ) parametro que iremos passar na chamada do <em>createServer()</em>. Por que em JavaScript, funções podem ser passadas como qualquer outro valor.
         </p>
 
         <a name="passing-functions-around"></a>
