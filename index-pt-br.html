@@ -630,10 +630,10 @@
 
         <a name="passing-functions-around"></a>
 
-        <h3>Passing functions around</h3>
+        <h3>Passando funções como um todo</h3>
 
         <p>
-            You can, for example, do something like this:
+            Você pode, pode exemplo, fazer algo assim:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">function</span><span class="pln"> say</span><span
                 class="pun">(</span><span class="pln">word</span><span class="pun">)</span><span
@@ -649,31 +649,31 @@
                 class="pln"> </span><span class="str">"Hello"</span><span class="pun">);</span></pre>
 
         <p>
-            Read this carefully! What we are doing here is, we pass the
-            function <em>say</em> as the first parameter to the
-            <em>execute</em> function. Not the return value of
-            <em>say</em>, but <em>say</em> itself!
+            Leia cuidadosamente. O que estamos fazendo é, passando a 
+            função <em>say</em> como primeiro parâmetro da função
+            <em>execute</em>. Não o valor retornado por
+            <em>say</em>, mas sim, a própria função <em>say</em>!
         </p>
 
         <p>
-            Thus, <em>say</em> becomes the local variable
-            <em>someFunction</em> within <em>execute</em>, and execute
-            can call the function in this variable by issuing
-            <em>someFunction()</em> (adding brackets).
+            Assim, <em>say</em> torna-se a variável local
+            <em>someFunction</em> dentro da função <em>execute</em>, e 
+            <em>execute</em> pode chamar a função nessa variável usando
+            <em>someFunction()</em> (adicionando parênteses).
         </p>
 
         <p>
-            Of course, because <em>say</em> takes one parameter,
-            <em>execute</em> can pass such a parameter when calling
+            Claro, por <em>say</em> receber um parâmetro,
+            <em>execute</em> pode passar tal parâmetro quando chamar
             <em>someFunction</em>.
         </p>
 
         <p>
-            We can, as we just did, pass a function as a parameter to
-            another function by its name. But we don't have to take this
-            indirection of first defining, then passing it - we can
-            define and pass a function as a parameter to another
-            function in-place:
+            Podemos, como acabamos de fazer, passar uma função como parâmetro 
+            para uma outra função através do seu nome. Mas não temos que seguir 
+            essa direção de primeiro definir a função, depois passá-la - podemos 
+            definir e passar uma função como parâmetro para outra função 
+            no mesmo lugar: 
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">function</span><span class="pln"> execute</span><span
                 class="pun">(</span><span class="pln">someFunction</span><span class="pun">,</span><span class="pln"> value</span><span
@@ -688,23 +688,23 @@
                 class="pun">);</span></pre>
 
         <p>
-            We define the function we want to pass to <em>execute</em>
-            right there at the place where <em>execute</em> expects its
-            first parameter.
+            Definimos a função a ser passada para <em>execute</em>
+            ali mesmo, no lugar onde <em>execute</em> espera seu primeiro 
+            parâmetro.
         </p>
 
         <p>
-            This way, we don't even need to give the function a name,
-            which is why this is called an <em>anonymous function</em>.
+            Dessa maneira, não precisamos fornecer um nome para a função, 
+            sendo assim, chamando-a como uma função anônima (<em>anonymous function</em>).
         </p>
 
         <p>
-            This is a first glimpse at what I like to call "advanced"
-            JavaScript, but let's take it step by step. For now, let's
-            just accept that in JavaScript, we can pass a function as
-            a parameter when calling another function. We can do this
-            by assigning our function to a variable, which we then
-            pass, or by defining the function to pass in-place.
+            Essa é a primeira mostra do que gosto de chamar Javascript “Avançado”, 
+            mas vamos passo a passo. Por agora, vamos apenas aceitar que, em javascript, 
+            podemos passar uma função como parâmetro quando chamada uma outra função. 
+            Podemos fazer isso inserindo nossa função em uma variável que será passada 
+            como parâmetro, ou definindo a função no próprio o local onde o parâmetro 
+            é declarado.
         </p>
 
         <a name="how-function-passing-makes-our-http-server-work"></a>
