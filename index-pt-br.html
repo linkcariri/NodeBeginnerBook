@@ -794,44 +794,43 @@ console.log("Hello World");</pre>
         </p>
                 
         <p>
-            The way we have written this code, the JavaScript interpreter of
-            Node.js first has to read the complete result set from the
-            database, and then it can execute the <em>console.log()</em>
-            function.
+            A maneira que escrevemos este código, o interpretador JavaScript do
+            Node.js primeiro tem que ler o resultado completo do
+            banco de dados, e então ele executa a função <em>console.log()</em>.
         </p>
 
         <p>
-            If this piece of code actually was, say, PHP, it would work the
-            same way: read all the results at once, then execute the next line
-            of code. If this code would be part of a web page script, the user
-            would have to wait several seconds for the page to load.
+            Se este trecho de código fosse, digamos, PHP, ele iria trabalhar na
+            mesma maneira: ler todos os resultados de uma só vez, em seguida, executar a próxima linha
+            de código. Se este código fosse parte de um script de uma página web, o usuário
+            teria que esperar alguns segundos para a página carregar.
         </p>
 
         <p>
-            However, in the execution model of PHP, this would not become a
-            "global" problem: the web server starts its own PHP process for
-            every HTTP request it receives. If one of these requests results
-            in the execution of a slow piece of code, it results in a slow
-            page load for this particular user, but other users requesting
-            other pages would not be affected.
+            No entanto, no modelo de execução do PHP, isso não seria um
+            problema "global": o servidor web inicia o seu processo para que o PHP
+            receba todas as solicitações HTTP. Se uma dessas solicitações resultarem
+            na execução de um trecho de código lento, este resultado efeta o
+            carregamento da página para um usuário específico, mas outros usuários que solicitem
+            outras páginas não seriam afetados.
         </p>
 
         <p>
-            The execution model of Node.js is different - there is only one
-            single process. If there is a slow database query somewhere in
-            this process, this affects the whole process - everything comes
-            to a halt until the slow query has finished.
+            O modelo de execução do Node.js é diferente - existe apenas um
+            único processo. Se houver uma consulta do banco de dados lenta em algum lugar
+            deste processo, isso afeta todo o processo - tudo fica
+            parado até que a consulta lenta tenha terminado
         </p>
 
         <p>
-            To avoid this, JavaScript, and therefore Node.js, introduces the
-            concept of event-driven, asynchronous callbacks, by utilizing an
-            event loop.
+            Para evitar isso, o JavaScript, e portanto o Node.js, introduz o
+            conceito de evento direcionado e callbacks assíncronos, utilizando de um
+            ciclo de eventos.
         </p>
 
         <p>
-            We can understand this concept by analyzing a rewritten version
-            of our problematic code:
+            Nós podemos entender este conceito analizado um versão reescrito
+            do nosso código problemático:
         </p>
 
         <pre class="prettyprint lang-js">database.query("SELECT * FROM hugetable", function(rows) {
@@ -840,72 +839,72 @@ console.log("Hello World");</pre>
 console.log("Hello World");</pre>
 
         <p>
-            Here, instead of expecting <em>database.query()</em> to directly
-            return a result to us, we pass it a second parameter, an anonymous
-            function.
+            Aqui, em vez de esperar <em>database.query()</em> nós retornamos
+            diretamente um resultado, passando como segundo parâmetro, uma função
+            anônima.
         </p>
 
         <p>
-            In its previous form, our code was synchronous: <em>first</em>
-            do the database query, and only when this is done, <em>then</em>
-            write to the console.
+            Na sua forma anterior, nosso código foi síncrono: <em>primeiro</em>
+            fazemos a consulta de banco de dados, e só quando isso estiver feito, <em>então</em>
+            escrevemos no console.
         </p>
 
         <p>
-            Now, Node.js can handle the database request asynchronously.
-            Provided that <em>database.query()</em> is part of an asynchronous
-            library, this is what Node.js does: just as before, it takes the
-            query and sends it to the database. But instead of waiting for it
-            to be finished, it makes a mental note that says "When at some
-            point in the future the database server is done and sends the
-            result of the query, then I have to execute the anonymous function
-            that was passed to <em>database.query()</em>."
+            Agora, o Node.js pode lidar com o pedido do banco de dados de forma assíncrona.
+            Desde que <em>database.query()</em> faça parte de uma biblioteca
+            assíncrona, isto é o que Node.js faz: assim como antes, pega a
+            consulta e envia para o banco de dados. Mas, em vez de esperar por ela
+            ser concluída, ele faz uma nota mental que diz: "Quando em algum
+            momento no futuro o servidor de banco de dados estiver concluído a operação
+            e enviar o resultado da consulta, então eu tenho que executar a função anônima
+            que foi passado para <em>database.query()</em>."
         </p>
 
         <p>
-            Then, it immediately executes <em>console.log()</em>, and
-            afterwards, it enters the event loop. Node.js continuously cycles
-            through this loop again and again whenever there is nothing else
-            to do, waiting for events. Events like, e.g., a slow database
-            query finally delivering its results.
+            Então, ele imediatamente executa <em>console.log()</ em> e
+            depois, ele entra no ciclo de eventos. Node.js executa continuamente
+            através desse ciclo de novo e de novo sempre que não há mais nada
+            fazer, à espera de eventos. Eventos como, por exemplo, uma base de dados lenta
+            consulta de finalmente entregar seus resultados.
         </p>
 
         <p>
-            This also explains why our HTTP server needs a function it can
-            call upon incoming requests - if Node.js would start the server
-            and then just pause, waiting for the next request, continuing
-            only when it arrives, that would be highly inefficent. If a second
-            user requests the server while it is still serving the first
-            request, that second request could only be answered after the first
-            one is done - as soon as you have more than a handful of HTTP
-            requests per second, this wouldn't work at all.
+            Isso também explica por que o nosso servidor HTTP precisa de uma função que pode
+            convocar os pedidos recebidos - se Node.js ser iniciado com o servidor
+            e depois só fazer uma pausa, esperando o próximo pedido, continuando
+            somente quando ele chegar, seria altamente ineficiente. Se um segundo
+            usuário solicitar o servidor enquanto ele ainda está servindo o primeiro
+            pedido, o segundo pedido só poderia ser atendido após o primeiro
+            ser feito - assim se você tem um número grande de pedidos HTTP
+            por segundo, isso não iria funcionar para todos.
         </p>
 
         <p>
-            It's important to note that this asynchronous, single-threaded,
-            event-driven execution model isn't an infinitely scalable
-            performance unicorn with silver bullets attached. It is just one
-            of several models, and it has its limitations, one being that as
-            of now, Node.js is just one single process, and it can run on only
-            one single CPU core. Personally, I find this model quite
-            approachable, because it allows to write applications that have to
-            deal with concurrency in an efficient and relatively
-            straightforward manner.
+            É importante notar que esta assíncrono, single-threaded e
+            está dirigindo eventos, de modo que o modelo de execução não é infinitamente escalável
+            e com performance unicórnio com balas de prata em anexo. É apenas um
+            de vários modelos, e tem suas limitações, sendo um deles que
+            o Node.js é apenas um único processo, e que pode ser executado em apenas
+            um núcleo único. Pessoalmente, acho que este modelo bastante
+            acessível, porque permite escrever aplicações que têm de
+            lidar com a concorrência de uma forma eficiente e relativamente
+            direta.
         </p>
 
         <p>
-            You might want to take the time to read Felix
-            Geisendörfer's excellent post
+            Você pode querer ler o excelente post de 
+            Felix Geisendörfer 
             <a href="http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb">Understanding
                 node.js</a>
-            for additional background explanation.
+            para uma explicação adicional.
         </p>
 
         <p>
-            Let's play around a bit with this new concept. Can we prove
-            that our code continues after creating the server, even if
-            no HTTP request happened and the callback function we
-            passed isn't called? Let's try it:
+            Vamos brincar um pouco com esse novo conceito. Podemos provar
+            que o nosso código continua depois de criar o servidor, mesmo se
+            nenhuma solicitação HTTP aconteceu e a função de retorno que foi
+            passado não é chamado? Vamos tentar:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">var</span><span class="pln"> http </span><span
                 class="pun">=</span><span class="pln"> require</span><span class="pun">(</span><span
@@ -929,31 +928,30 @@ console.log("Hello World");</pre>
                 class="pun">);</span></pre>
 
         <p>
-            Note that I use <em>console.log</em> to output a text whenever
-            the <em>onRequest</em> function (our callback) is triggered,
-            and another text right <em>after</em> starting the HTTP server.
+            Note que eu uso <em>console.log</em> para a saída de um texto sempre que
+            a função <em>onRequest</em> (nosso callback) é acionado,
+            e outro texto logo <em>após</em> iniciar o servidor HTTP.
         </p>
 
         <p>
-            When we start this (<em>node server.js</em>, as always), it
-            will immediately output "Server has started." on the
-            command line. Whenever we request our server (by opening
+            Quando iniciamos este (<em> node server.js </ em>, como sempre), ele
+            imediatamente gera a saída "Server foi iniciado." na
+            linha de comando. Sempre que solicitar o nosso servidor (abrindo
             <a href="http://localhost:8888/" rel="nofollow">http://localhost:8888/</a>
-
-            in our browser), the message "Request received." is printed
-            on the command line.
+            em nosso navegador), a mensagem "Pedido recebido." é impressa
+            na linha de comando.
         </p>
 
         <p>
-            Event-driven asynchronous server-side JavaScript with
-            callbacks in action :-)
+            Direcionar eventos assíncrono JavaScript do lado do servidor com
+            callbacks em ação :-)
         </p>
 
         <p>
-            (Note that our server will probably write "Request received."
-            to STDOUT two times upon opening the page in a browser. That's
-            because most browsers will try to load the favicon by requesting
-            http://localhost:8888/favicon.ico whenever you open
+            Note que o nosso servidor irá provavelmente escrever "Pedido recebido."
+            para STDOUT duas vezes ao abrir a página em um navegador. Isso é
+            porque a maioria dos navegadores irá tentar carregar o favicon, solicitando
+            http://localhost:8888/favicon.ico sempre que abrir
             http://localhost:8888/).
         </p>
 
