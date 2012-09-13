@@ -766,34 +766,34 @@
 
         <a name="event-driven-callbacks"></a>
 
-        <h3>Event-driven asynchronous callbacks</h3>
+        <h3>Direcionar callbacks de eventos assíncronos</h3>
 
         <p>
-            To understand why Node.js applications have to be written this way,
-            we need to understand how Node.js executes our code. Node's
-            approach isn't unique, but the underlying execution model is
-            different from runtime environments like Python, Ruby, PHP or Java.
+            Para entender por que os aplicativos Node.js tem que ser escrito dessa maneira,
+            precisamos entender como Node.js executa nosso código. Esta 
+            abordagem não é única, mas o modelo de execução subjacente é
+            diferente de ambientes de execução, como Python, Ruby, PHP ou Java.
         </p>
 
         <p>
-            Let's take a very simple piece of code like this:
+            Vamos pegar um simples pedaço de código como este:
         </p>
 
         <pre class="prettyprint lang-js">var result = database.query("SELECT * FROM hugetable");
 console.log("Hello World");</pre>
 
         <p>
-            Please ignore for now that we haven't actually talked about
-            connecting to databases before - it's just an example. The
-            first line queries a database for lots of rows, the second
-            line puts "Hello World" to the console.
+            Por favor, ignore por enquanto que não tenhamos falado sobre
+            consulta com o banco de dados antes - é apenas um exemplo. A
+            primeira linha consulta um banco de dados com muitos registros, a segunda
+            linha coloca escrito "Olá Mundo" no console.
         </p>
 
         <p>
-            Let's assume that the database query is really slow, that it has
-            to read an awful lot of rows, which takes several seconds.
+            Vamos supor que a consulta no banco de dados é muito lenta, que para
+            ler uma grande quantidade de registros, levaria vários segundos.
         </p>
-
+                
         <p>
             The way we have written this code, the JavaScript interpreter of
             Node.js first has to read the complete result set from the
