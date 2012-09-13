@@ -709,11 +709,11 @@
 
         <a name="how-function-passing-makes-our-http-server-work"></a>
 
-        <h3>How function passing makes our HTTP server work</h3>
+        <h3>Como a passagem de função faz nosso servidor HTTP trabalhar</h3>
 
         <p>
-            With this knowledge, let's get back to our minimalistic
-            HTTP server:
+            Com este conhecimento, vamos voltar para o nosso minimalista
+            servidor HTTP:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">var</span><span class="pln"> http </span><span
                 class="pun">=</span><span class="pln"> require</span><span class="pun">(</span><span
@@ -733,13 +733,12 @@
                 class="pun">);</span></pre>
 
         <p>
-            By now it should be clear what we are actually doing here:
-            we pass the <em>createServer</em> function an anonymous
-            function.
+            Agora deve estar claro o que realmente estamos fazendo aqui:
+            Passamos a função <em>createServer</em> de uma função anônima.
         </p>
 
         <p>
-            We could achieve the same by refactoring our code to:
+             Poderiamos conseguir o mesmo efeito refatorando nosso código para:
         </p>
         <pre class="prettyprint lang-js"><span class="kwd">var</span><span class="pln"> http </span><span
                 class="pun">=</span><span class="pln"> require</span><span class="pun">(</span><span
@@ -760,8 +759,8 @@
                 class="lit">8888</span><span class="pun">);</span></pre>
 
         <p>
-            Maybe now is a good moment to ask: Why are we doing it
-            that way?
+            Talvez agora seja um bom momento para perguntar: Por que estamos fazendo desta
+            maneira?
         </p>
 
         <a name="event-driven-callbacks"></a>
