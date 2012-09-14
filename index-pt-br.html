@@ -960,41 +960,29 @@ console.log("Hello World");</pre>
         <h3>Como nosso servidor processa as requisições</h3>
 
         <p>
-            Ok, let's quickly analyze the rest of our server code, that
-            is, the body of our callback function <em>onRequest()</em>.
+            Ok, vamos analisar rapidamente o resto do nosso código, servidor, que é
+            o corpo da nossa função callback <em>onRequest()</em>.
         </p>
 
         <p>
-            When the callback fires and our <em>onRequest()</em> function
-            gets triggered, two parameters are passed into it:
-            <em>request</em> and <em>response</em>.
+            Quando o callback é disparado e nossa função <em>onRequest()</em> é acionada,
+            dois parâmetros  são passados para ele: <em>request</em> e <em>response</em>.
         </p>
 
         <p>
-            Those are objects, and you can use their methods to handle
-            the details of the HTTP request that occured and to respond
-            to the request (i.e., to actually send something over
-            the wire back to the browser that requested your server).
+            Estes são objetos, e voce pode usar seus métodos para lidar com os detalhes da requisição HTTP que occoreram e para responder a requisição (ou seja, para realmente enviar alguma coisa sobre a parte traseira do fio para o navegador que solicitou o seu servidor ).
         </p>
 
         <p>
-            And our code does just that: Whenever a request is
-            received, it uses the <em>response.writeHead()</em>
-            function to send an HTTP status 200 and content-type in the
-            HTTP response header, and the <em>response.write()</em>
-            function to send the text "Hello World" in the HTTP
-            response body.
+            E nosso código faz justamente isto: Sempre que a requisição é recebida, é usado a função <em>response.writeHead()</em> para enviar um HTTP status 200 e o tipo de conteudo no cabeçalho da resposta HTTP, e a função <em>response.write()</em> envia o texto "Olá Mundo" no corpo da resposta HTTP.
         </p>
 
         <p>
-            At last, we call <em>response.end()</em> to actually finish
-            our response.
+            E por último, chamamos <em>response.end()</em> para realmente terminar nossa resposta.
         </p>
 
         <p>
-            At this point, we don't care for the details of the
-            request, which is why we don't use the <em>request</em>
-            object at all.
+            Neste ponto, não nos importamos com os detalhes da requisição, razão pela qual não usamos o objeto <em>request</em> em tudo.
         </p>
 
         <a name="finding-a-place-for-our-server-module"></a>
